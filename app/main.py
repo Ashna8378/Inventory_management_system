@@ -1,6 +1,9 @@
 from fastapi import FastAPI, Depends, HTTPException
 from sqlalchemy.orm import Session
 from app import models, schemas, crud
+
+# from app import models, schemas
+
 from app.database import engine, SessionLocal, Base
 
 Base.metadata.create_all(bind=engine)
@@ -161,3 +164,63 @@ def update_environment(environment_id: int, updated_environment: schemas.Environ
 @app.delete("/environments/{environment_id}")
 def delete_environment(environment_id: int, db: Session = Depends(get_db)):
     return crud.delete_environment(db, environment_id)
+
+# ===================== BULK ROUTES =====================
+
+@app.post("/servers/bulk")
+def bulk_create_servers(servers: list[schemas.ServerCreate], db: Session = Depends(get_db)):
+    return crud.bulk_create_servers(db, servers)
+
+@app.delete("/servers/bulk")
+def bulk_delete_servers(server_ids: list[int], db: Session = Depends(get_db)):
+    return crud.bulk_delete_servers(db, server_ids)
+
+
+@app.post("/locations/bulk")
+def bulk_create_locations(locations: list[schemas.LocationCreate], db: Session = Depends(get_db)):
+    return crud.bulk_create_locations(db, locations)
+
+@app.delete("/locations/bulk")
+def bulk_delete_locations(location_ids: list[int], db: Session = Depends(get_db)):
+    return crud.bulk_delete_locations(db, location_ids)
+
+
+@app.post("/os/bulk")
+def bulk_create_oses(os_list: list[schemas.OSCreate], db: Session = Depends(get_db)):
+    return crud.bulk_create_oses(db, os_list)
+
+@app.delete("/os/bulk")
+def bulk_delete_oses(os_ids: list[int], db: Session = Depends(get_db)):
+    return crud.bulk_delete_oses(db, os_ids)
+
+
+@app.post("/types/bulk")
+def bulk_create_types(types: list[schemas.TypeCreate], db: Session = Depends(get_db)):
+    return crud.bulk_create_types(db, types)
+
+@app.delete("/types/bulk")
+def bulk_delete_types(type_ids: list[int], db: Session = Depends(get_db)):
+    return crud.bulk_delete_types(db, type_ids)
+
+
+@app.post("/categories/bulk")
+def bulk_create_categories(categories: list[schemas.CategoryCreate], db: Session = Depends(get_db)):
+    return crud.bulk_create_categories(db, categories)
+
+@app.delete("/categories/bulk")
+def bulk_delete_categories(category_ids: list[int], db: Session = Depends(get_db)):
+    return crud.bulk_delete_categories(db, category_ids)
+
+
+@app.post("/environments/bulk")
+def bulk_create_environments(environments: list[schemas.EnvironmentCreate], db: Session = Depends(get_db)):
+    return crud.bulk_create_environments(db, environments)
+
+@app.delete("/environments/bulk")
+def bulk_delete_environments(environment_ids: list[int], db: Session = Depends(get_db)):
+    return crud.bulk_delete_environments(db, environment_ids)
+
+
+
+
+

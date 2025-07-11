@@ -203,3 +203,9 @@ def delete_environment(db: Session, environment_id: int):
         db.delete(db_env)
         db.commit()
     return db_env
+
+
+
+
+
+
