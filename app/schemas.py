@@ -38,7 +38,6 @@ class Location(LocationBase):
 
 
 
-
 class OSBase(BaseModel):
     os_name: str
     os_version: str
@@ -79,8 +78,6 @@ class Category(CategoryBase):
 
     class Config:
         from_attributes = True
-
-
 
 
 
